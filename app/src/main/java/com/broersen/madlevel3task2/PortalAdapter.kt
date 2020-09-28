@@ -1,12 +1,19 @@
 package com.broersen.madlevel3task2
 
+import android.app.PendingIntent
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_portal.view.*
 
-class PortalAdapter (private val portals: List<Portal>) : RecyclerView.Adapter<PortalAdapter.ViewHolder>(){
+class PortalAdapter (private val portals: List<Portal>, val clickListener: (Portal)->Unit) : RecyclerView.Adapter<PortalAdapter.ViewHolder>(){
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -14,6 +21,8 @@ class PortalAdapter (private val portals: List<Portal>) : RecyclerView.Adapter<P
         fun databind(portal: Portal){
             itemView.tvPortalTitle.text = portal.title
             itemView.tvPortalUrl.text = portal.url
+            itemView.setOnClickListener{ clickListener(portal)}
+
         }
     }
 
